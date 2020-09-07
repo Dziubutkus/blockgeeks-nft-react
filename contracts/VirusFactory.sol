@@ -35,4 +35,12 @@ contract VirusFactory is Virus {
         uint randomNumber = uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender)));
         return randomNumber % _mod;
     }
+
+    function safeTransferFrom(address _from, address _to, uint _virusId) public override onlyOwnerOf(_virusId) {
+        require(_exists(_virusId));
+        ownerVirusCount[_from] = ownerVirusCount[_from].sub(1);
+        ownerVirusCount[_to] = ownerVirusCount[_to].add(1);
+        virusToOwner[_virusId] = _to;
+        super.safeTransferFrom(_from, _to, _virusId);
+    }
 }
