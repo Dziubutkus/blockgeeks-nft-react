@@ -1,4 +1,4 @@
-const Virus = artifacts.require("VirusFactory");
+const Virus = artifacts.require("VirusInfect");
 
 module.exports = function (deployer) {
   deployer.deploy(Virus);
